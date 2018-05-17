@@ -2,3 +2,5 @@
 /HandmadeCity/obj
 /HandmadeCity/bin
 /HandmadeCity/wwwroot/lib
+/HandmadeCity/Properties/PublishProfiles
+*.csproj.user
