@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HandmadeCity.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(HandmadeCityDbContext))]
     [Migration("00000000000000_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {

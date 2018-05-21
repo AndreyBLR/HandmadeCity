@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using HandmadeCity.Data;
+using HandmadeCity.Data.Entities;
 using HandmadeCity.Models;
 using HandmadeCity.Services;
 
@@ -26,11 +27,11 @@ namespace HandmadeCity
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<HandmadeCityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<HandmadeCityDbContext>()
                 .AddDefaultTokenProviders();
 
             // Add application services.

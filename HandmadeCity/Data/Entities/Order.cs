@@ -12,7 +12,7 @@ namespace HandmadeCity.Data.Entities
         [Key]
         public int Id { get; set; }
         [Required]
-        public User User { get; set; }
+        public ApplicationUser User { get; set; }
         [Required]
         public IList<OrderProduct> OrderProducts { get; set; }
         [DefaultValue(0)]

@@ -2,17 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HandmadeCity.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using HandmadeCity.Models;
 
 namespace HandmadeCity.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class HandmadeCityDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public DbSet<Bookmark> Bookmarks { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<OrderProduct> OrderProducts { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+
+        public HandmadeCityDbContext(DbContextOptions<HandmadeCityDbContext> options)
             : base(options)
         {
+            
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
