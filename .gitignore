@@ -4,3 +4,6 @@
 /HandmadeCity/wwwroot/lib
 /HandmadeCity/Properties/PublishProfiles
 *.csproj.user
+/ForTests/bin
+/ForTests/obj
+/ForTests/wwwroot/lib
