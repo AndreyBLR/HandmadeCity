@@ -1,6 +1,4 @@
-using System;
-
-namespace HandmadeCity.Models
+namespace HandmadeCity.ViewModels
 {
     public class ErrorViewModel
     {

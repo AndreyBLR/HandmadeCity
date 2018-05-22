@@ -11,9 +11,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using HandmadeCity.Models;
-using HandmadeCity.Models.ManageViewModels;
 using HandmadeCity.Services;
+using HandmadeCity.ViewModels.Manage;
 
 namespace HandmadeCity.Controllers
 {

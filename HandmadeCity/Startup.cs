@@ -10,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using HandmadeCity.Data;
 using HandmadeCity.Data.Entities;
-using HandmadeCity.Models;
 using HandmadeCity.Services;
 
 namespace HandmadeCity

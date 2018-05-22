@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using HandmadeCity.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using HandmadeCity.Models;
 
 namespace HandmadeCity.Data
 {
