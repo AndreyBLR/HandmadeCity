@@ -12,6 +12,7 @@ namespace HandmadeCity.Data
     public class HandmadeCityDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Bookmark> Bookmarks { get; set; }
+        public DbSet<Topic> Topics { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
