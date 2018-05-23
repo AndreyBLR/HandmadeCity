@@ -11,9 +11,10 @@ using System;
 namespace HandmadeCity.Data.Migrations
 {
     [DbContext(typeof(HandmadeCityDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180523104351_UpdateProductEntity")]
+    partial class UpdateProductEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

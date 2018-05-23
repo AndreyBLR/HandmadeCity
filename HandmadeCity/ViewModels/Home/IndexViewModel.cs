@@ -9,5 +9,10 @@ namespace HandmadeCity.ViewModels.Home
     public class IndexViewModel
     {
         public IList<Topic> Topics { get; set; }
+
+        public IndexViewModel()
+        {
+            Topics = new List<Topic>();
+        }
     }
 }

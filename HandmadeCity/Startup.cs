@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using HandmadeCity.Data;
 using HandmadeCity.Data.Entities;
 using HandmadeCity.Services;
+using HandmadeCity.Services.Interfaces;
 
 namespace HandmadeCity
 {

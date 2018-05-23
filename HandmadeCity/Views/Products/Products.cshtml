@@ -1,0 +1,16 @@
+﻿@using HandmadeCity.ViewModels.Products
+@model HandmadeCity.ViewModels.Products.ProductListViewModel
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="container" >
+    <br/> <br /> <br />
+    @foreach (var product in Model.Products) {
+        <div class="col-md-4" >
+            @Html.Partial("PartialViews/_ShowProductCard", product)
+        </div>
+    }
+</div>
+
+

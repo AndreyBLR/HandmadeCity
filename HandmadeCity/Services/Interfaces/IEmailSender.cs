@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace HandmadeCity.Services
+namespace HandmadeCity.Services.Interfaces
 {
     public interface IEmailSender
     {

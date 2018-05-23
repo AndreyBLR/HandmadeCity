@@ -75,7 +75,7 @@
         <ul>
             @foreach (var category in topic.Categories) {
 
-                <li>@category.Name</li>
+                <li><a btn btn-link asp-controller="Products" asp-action="GetByCategory"  asp-route-categoryId="@category.Id">@category.Name</a></li>
             }
         </ul>
     </div>

@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using HandmadeCity.Data.Entities;
+using HandmadeCity.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using HandmadeCity.Services;
+using HandmadeCity.Services.Interfaces;
 using HandmadeCity.ViewModels.Manage;
 
 namespace HandmadeCity.Controllers

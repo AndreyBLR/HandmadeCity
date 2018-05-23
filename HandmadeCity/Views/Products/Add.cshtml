@@ -1,0 +1,63 @@
+﻿@using HandmadeCity.ViewModels.Products
+@model HandmadeCity.ViewModels.Products.ProductForAddingViewModel
+@{
+    ViewData["Title"] = "Добавить Товар";
+}
+
+<div class="container" >
+    <div class="center-block" >
+        <form method="post" asp-controller="Products" asp-action="Add" enctype="multipart/form-data">
+            <div class="col-md-4">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h4>
+                            <div class="form-group">
+                                <label asp-for="Name">Имя</label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name"></span>
+                            </div>
+                        </h4>
+                        <p>
+                            <div class="form-group">
+                                <label asp-for="Description">Описание</label>
+                                <input asp-for="Description" class="form-control" />
+                                <span asp-validation-for="Description"></span>
+                            </div>
+                        </p>
+                        <p>
+                            <div class="form-group">
+                                <label asp-for="SelectedCategoryId">Категория</label>
+                                <select asp-for="SelectedCategoryId" asp-items="@Model.Categories" class="form-control">
+                                    <option value="value" />
+                                </select>
+                            </div>
+                        </p>
+                        <p>
+                            <div class="form-group">
+                                <label asp-for="Price">Стоимость (BYN)</label>
+                                <input asp-for="Price" class="form-control" />
+                            </div>
+                        </p>
+                        <p>
+                            <div class="form-group">
+                                <label asp-for="Discount">Скидка (%)</label>
+                                <input asp-for="Discount" class="form-control" />
+                            </div>
+                        </p>
+                        <div class="form-group">
+                            <label asp-for="Image">Изображение</label>
+                            <input asp-for="Image" class="form-control" />
+                            <span asp-validation-for="Image"></span>
+                        </div>
+                    </div>
+
+                    <div class="space-ten"></div>
+                    <div class="btn-ground text-center">
+                        <input class="btn btn-primary" type="submit" value="Добавить" class="btn btn-default" />
+                    </div>
+                    <div class="space-ten"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

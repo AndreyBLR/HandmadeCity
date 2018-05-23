@@ -26,6 +26,6 @@ namespace HandmadeCity.Data.Entities
         public IList<OrderProduct> OrderProducts { get; set; }
         public IList<Bookmark> Bookmarks { get; set; }
         public IList<Review> Reviews { get; set; }
-        public Category Categories { get; set; }
+        public Category Category { get; set; }
     }
 }

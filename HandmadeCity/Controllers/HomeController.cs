@@ -4,8 +4,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using HandmadeCity.Data;
+using HandmadeCity.Data.Entities;
 using HandmadeCity.ViewModels;
 using HandmadeCity.ViewModels.Home;
+using HandmadeCity.ViewModels.Products;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,13 +31,7 @@ namespace HandmadeCity.Controllers
 
             return View(viewModel);
         }
-
-        public IActionResult Products(int categoryId)
-        {
-           
-            return View();
-        }
-
+        
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
