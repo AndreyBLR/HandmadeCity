@@ -27,6 +27,16 @@ namespace HandmadeCity
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc().AddSessionStateTempDataProvider();
+            services.AddSession();
+
+            services.AddSingleton<ICartService, CartService>();
+
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = ".HandmadeCity.Session";
+            });
+
             services.AddDbContext<HandmadeCityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -53,6 +63,8 @@ namespace HandmadeCity
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseSession();
 
             app.UseStaticFiles();
 

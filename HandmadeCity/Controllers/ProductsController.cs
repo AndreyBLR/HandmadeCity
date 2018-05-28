@@ -5,8 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using HandmadeCity.Data;
 using HandmadeCity.Data.Entities;
+using HandmadeCity.Services.Interfaces;
 using HandmadeCity.ViewModels.Home;
 using HandmadeCity.ViewModels.Products;
+using HandmadeCity.ViewModels.Shared;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,37 +16,49 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HandmadeCity.Controllers
 {
+    [Route("[controller]/[action]")]
     public class ProductsController : Controller
     {
         private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly ICartService _cartService;
         private readonly HandmadeCityDbContext _dbContext;
 
         public ProductsController(IHostingEnvironment hostingEnvironment,
-                                 HandmadeCityDbContext dbContext)
+                                  ICartService cartService,
+                                  HandmadeCityDbContext dbContext)
         {
             _hostingEnvironment = hostingEnvironment;
+            _cartService = cartService;
             _dbContext = dbContext;
         }
         
         [HttpGet]
         public IActionResult GetByCategory(int categoryId)
         {
+            var prodIdsInCart = _cartService.Get(HttpContext.Session);
             var products = _dbContext.Products.Include(prod => prod.Reviews).Include(prod => prod.Category).ToList();
 
-            var productListViewModel = new ProductListViewModel(products);
+            var productListViewModel = new ProductListViewModel();
+
+            foreach (var product in products)
+            {
+                productListViewModel.AddProductviewModel(new ProductViewModel(product, prodIdsInCart.Contains(product.Id)));  
+            }
 
             return View("Products", productListViewModel);
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public IActionResult AddProduct()
         {
             var categories = _dbContext.Categories.ToList();
-            return View(new ProductForAddingViewModel(categories));
-        }
+            var productForAddingViewModel = new ProductForAddingViewModel(categories);
 
+            return View("AddProduct", productForAddingViewModel);
+        }
+        
         [HttpPost]
-        public IActionResult Add(ProductForAddingViewModel productForAddingViewModel)
+        public IActionResult AddProduct(ProductForAddingViewModel productForAddingViewModel)
         {
             var pictureUrl = SaveImageToContentFolder(productForAddingViewModel.Image);
             var category = _dbContext.Categories.FirstOrDefault(item => item.Id == productForAddingViewModel.SelectedCategoryId);

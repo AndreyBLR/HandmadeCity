@@ -1,10 +1,11 @@
 ﻿using System;
 using HandmadeCity.Data.Entities;
 
-namespace HandmadeCity.ViewModels.Products
+namespace HandmadeCity.ViewModels.Shared
 {
     public class ProductViewModel
     {
+        public bool IsInCart { get; set; }
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -24,8 +25,9 @@ namespace HandmadeCity.ViewModels.Products
         {
         }
 
-        public ProductViewModel(Product product)
+        public ProductViewModel(Product product, bool isInCart)
         {
+            IsInCart = isInCart;
             Id = product.Id;
             Name = product.Name;
             Description = product.Description;

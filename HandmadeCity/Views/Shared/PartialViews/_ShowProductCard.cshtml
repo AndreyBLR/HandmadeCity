@@ -1,28 +1,44 @@
 ﻿@using HandmadeCity.ViewModels.Products
-@model HandmadeCity.ViewModels.Products.ProductViewModel
+@using HandmadeCity.ViewModels.Shared
+@model HandmadeCity.ViewModels.Shared.ProductViewModel
 
-<div class="thumbnail" >
-    <img src="@Model.PictureUrl" alt="" class="img-responsive" style="height: 200px" >
+<div class="thumbnail">
+    <img src="@Model.PictureUrl" alt="" class="img-responsive" style="height: 200px">
     <div class="caption">
-        <h4 class="pull-right"></h4>
-        <h4><a href="#">@Model.Name</a></h4>
+        <a href="#">@Model.Name</a>
     </div>
     <div class="ratings">
         <p>
             @for (int i = 0; i < Model.TotalRating; i++)
             {
                 <span class="glyphicon glyphicon-star"></span>
-            } 
+            }
             @for (int i = 0; i < 5 - Model.TotalRating; i++)
             {
                 <span class="glyphicon glyphicon-star-empty"></span>
             } (@Model.ReviewAmout)
         </p>
     </div>
-    <div class="space-ten"></div>
-    <div class="btn-ground text-center">
-        <button type="button" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add To Cart</button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#product_view"><i class="fa fa-search"></i>Add To Bookmark</button>
+
+    @if (Model.Discount > 0)
+    {
+        <p style="font-size: 15px;"> <strong style="font-size: 20px; font-weight: bold">@(Model.Price - Model.Price * Model.Discount / 100) BYN </strong><p><font color="green"><s>@Model.Price BYN</s>(-@Model.Discount% off)</font></p></p>
+    }
+    else
+    {
+        <strong style="font-size: 20px; font-weight: bold">@Model.Price BYN</strong>
+    }
+    
+
+    <div class="btn-ground text-center" >
+        @if (!Model.IsInCart) {
+            <a asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@Model.Id" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Добавить в корзину</a>
+        }
+        else { 
+            <a asp-controller="Cart" asp-action="RemoveFromCart" asp-route-productId="@Model.Id" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Удалить из корзины</a>
+        }
+        
+        <a class="btn btn-primary" data-toggle="modal" data-target="#product_view" ><i class="fa fa-search" ></i>Add To Bookmark</a>
     </div>
     <div class="space-ten"></div>
 </div>

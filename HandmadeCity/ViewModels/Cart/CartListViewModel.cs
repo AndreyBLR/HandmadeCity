@@ -1,19 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using HandmadeCity.Data.Entities;
 using HandmadeCity.ViewModels.Shared;
 
-namespace HandmadeCity.ViewModels.Products
+namespace HandmadeCity.ViewModels.Cart
 {
-    public class ProductListViewModel
+    public class CartListViewModel
     {
-        public IList<ProductViewModel> Products { get; }
+        public IList<ProductViewModel> Products { get; set; }
 
-        public ProductListViewModel()
+        public CartListViewModel()
         {
             Products = new List<ProductViewModel>();
         }
 
-        public ProductListViewModel(IList<ProductViewModel> products)
+        public CartListViewModel(IList<ProductViewModel> products)
         {
             Products = products;
         }
