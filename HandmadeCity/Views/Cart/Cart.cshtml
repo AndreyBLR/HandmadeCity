@@ -17,7 +17,7 @@
             @foreach (var product in Model.Products) {
 
                 <div class="col-md-4" >
-                    @Html.Partial("PartialViews/_ShowProductCard", product)
+                    @Html.Partial("PartialViews/_ProductCard", product)
                 </div>
             }
         </div>
@@ -27,7 +27,7 @@
         <br />
         <br />
         <div class="row" >
-            <a asp-controller="Cart" asp-action="Purchase" class="btn btn-primary" ><i class="fa fa-shopping-cart" ></i>Совершить Покупку</a>
+            <a asp-controller="Purchase" asp-action="Purchase" class="btn btn-primary" ><i class="fa fa-shopping-cart" ></i>Совершить Покупку</a>
         </div>
     }
 </div>

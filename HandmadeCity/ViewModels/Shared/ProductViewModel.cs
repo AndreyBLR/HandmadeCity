@@ -31,14 +31,15 @@ namespace HandmadeCity.ViewModels.Shared
             Id = product.Id;
             Name = product.Name;
             Description = product.Description;
-            CategoryName = product.Category.Name;
+            CategoryName = product?.Category?.Name;
 
             Discount = product.Discount;
             Price = product.Price;
 
             TotalRating = Convert.ToInt32(product.TotalRating);
 
-            ReviewAmout = product.Reviews.Count;
+            if(product.Reviews != null)
+                ReviewAmout = product.Reviews.Count;
 
             PictureUrl = product.PictureUrl;
         }

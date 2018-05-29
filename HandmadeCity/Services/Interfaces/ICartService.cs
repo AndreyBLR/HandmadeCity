@@ -11,5 +11,6 @@ namespace HandmadeCity.Services.Interfaces
         IList<int> Get(ISession session);
         void Add(ISession session, int productId);
         void Remove(ISession session, int productId);
+        void Clear(ISession session);
     }
 }

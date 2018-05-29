@@ -11,9 +11,10 @@ using System;
 namespace HandmadeCity.Data.Migrations
 {
     [DbContext(typeof(HandmadeCityDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180529103018_OrderProductManyToMany")]
+    partial class OrderProductManyToMany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -111,6 +112,36 @@ namespace HandmadeCity.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("HandmadeCity.Data.Entities.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("TotalCost");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("HandmadeCity.Data.Entities.OrderProduct", b =>
+                {
+                    b.Property<int>("OrderId");
+
+                    b.Property<int>("ProductId");
+
+                    b.HasKey("OrderId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderProduct");
+                });
+
             modelBuilder.Entity("HandmadeCity.Data.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -136,38 +167,6 @@ namespace HandmadeCity.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("HandmadeCity.Data.Entities.Purchase", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("DateTime");
-
-                    b.Property<decimal>("TotalCost");
-
-                    b.Property<string>("UserId")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Purchases");
-                });
-
-            modelBuilder.Entity("HandmadeCity.Data.Entities.PurchaseProduct", b =>
-                {
-                    b.Property<int>("OrderId");
-
-                    b.Property<int>("ProductId");
-
-                    b.HasKey("OrderId", "ProductId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("PurchaseProducts");
                 });
 
             modelBuilder.Entity("HandmadeCity.Data.Entities.Review", b =>
@@ -338,14 +337,7 @@ namespace HandmadeCity.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("HandmadeCity.Data.Entities.Product", b =>
-                {
-                    b.HasOne("HandmadeCity.Data.Entities.Category", "Category")
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId");
-                });
-
-            modelBuilder.Entity("HandmadeCity.Data.Entities.Purchase", b =>
+            modelBuilder.Entity("HandmadeCity.Data.Entities.Order", b =>
                 {
                     b.HasOne("HandmadeCity.Data.Entities.ApplicationUser", "User")
                         .WithMany("Orders")
@@ -353,17 +345,24 @@ namespace HandmadeCity.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("HandmadeCity.Data.Entities.PurchaseProduct", b =>
+            modelBuilder.Entity("HandmadeCity.Data.Entities.OrderProduct", b =>
                 {
-                    b.HasOne("HandmadeCity.Data.Entities.Purchase", "Purchase")
-                        .WithMany("PurchaseProducts")
+                    b.HasOne("HandmadeCity.Data.Entities.Order", "Order")
+                        .WithMany("OrderProducts")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("HandmadeCity.Data.Entities.Product", "Product")
-                        .WithMany("PurchaseProducts")
+                        .WithMany("OrderProducts")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("HandmadeCity.Data.Entities.Product", b =>
+                {
+                    b.HasOne("HandmadeCity.Data.Entities.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId");
                 });
 
             modelBuilder.Entity("HandmadeCity.Data.Entities.Review", b =>

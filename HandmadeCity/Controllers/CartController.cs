@@ -19,19 +19,14 @@ namespace HandmadeCity.Controllers
     [Route("[controller]/[action]")]
     public class CartController : Controller
     {
-        private readonly string _listOfProductsInCartSessionKey = "ListOfProductsInCart";
-        private readonly string _amountOfProductsInCartSessionKey = "AmountOfProductsInCart";
         private readonly HandmadeCityDbContext _dbContext;
         private readonly ICartService _cartService;
-        private readonly UserManager<ApplicationUser> _userManager;
 
         public CartController(HandmadeCityDbContext dbContext,
-                              ICartService cartService,
-                              UserManager<ApplicationUser> userManager)
+                              ICartService cartService)
         {
             _dbContext = dbContext;
             _cartService = cartService;
-            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -66,61 +61,6 @@ namespace HandmadeCity.Controllers
         {
             _cartService.Remove(HttpContext.Session, productId);
             return Redirect(Request.Headers["Referer"].ToString());
-        }
-
-        [Authorize]
-        public IActionResult Purchase()
-        {
-            var activeUser = _userManager.GetUserAsync(User).Result;
-
-            if (activeUser != null)
-            {
-                var productList = new List<Product>();
-                var productIds = _cartService.Get(HttpContext.Session);
-
-                foreach (var productId in productIds)
-                {
-                    var product = _dbContext.Products.FirstOrDefault(prod => prod.Id == productId);
-
-                    if (product != null)
-                    {
-                        productList.Add(product);
-                    }
-                }
-
-                if (productList.Count != 0)
-                {
-                    var newOrder = new Order
-                    {
-                        User = activeUser,
-                        OrderProducts = new List<OrderProduct>()
-                    };
-
-                    _dbContext.Orders.Add(newOrder);
-
-                    foreach (var product in productList)
-                    {
-                        newOrder.TotalCost += product.Price - product.Price * product.Discount / 100;
-                        var orderProduct = new OrderProduct()
-                        {
-                            Order = newOrder,
-                            Product = product
-                        };
-                        
-                        newOrder.OrderProducts.Add(orderProduct);
-                    }
-
-                    _dbContext.SaveChanges();
-
-                    return View("Purchase");
-                }
-            }
-            else
-            {
-                RedirectToAction("Login", "Account");
-            }
-
-            return RedirectToAction("Index", "Home");
         }
     }
 }

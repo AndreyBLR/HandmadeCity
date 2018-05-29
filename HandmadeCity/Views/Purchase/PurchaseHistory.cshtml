@@ -1,0 +1,14 @@
+﻿@model HandmadeCity.ViewModels.Purchases.PurchaseHistoryViewModel
+@{
+    ViewData["Title"] = "История Покупок";
+}
+
+<div class="container">
+    <br /> <br /> <br />
+    @foreach (var purchase in Model.Purchases)
+    {
+        <div class="col-md-4" >
+            @Html.Partial("PartialViews/_PurchaseCard", purchase)
+        </div>
+    }
+</div>

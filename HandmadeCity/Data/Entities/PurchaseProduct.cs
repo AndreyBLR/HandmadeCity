@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace HandmadeCity.Data.Entities
 {
-    public class OrderProduct
+    public class PurchaseProduct
     {
-        [Key]
-        public int Id { get; set; }
-        [Required]
-        public Order Order { get; set; }
-        [Required]
+        public int OrderId { get; set; }
+        public Purchase Purchase { get; set; }
+
+        public int ProductId { get; set; }
         public Product Product { get; set; }
     }
 }

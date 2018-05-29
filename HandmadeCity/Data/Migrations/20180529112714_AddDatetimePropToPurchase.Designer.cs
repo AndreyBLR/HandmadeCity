@@ -11,9 +11,10 @@ using System;
 namespace HandmadeCity.Data.Migrations
 {
     [DbContext(typeof(HandmadeCityDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180529112714_AddDatetimePropToPurchase")]
+    partial class AddDatetimePropToPurchase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -167,7 +168,7 @@ namespace HandmadeCity.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("PurchaseProducts");
+                    b.ToTable("PurchaseProduct");
                 });
 
             modelBuilder.Entity("HandmadeCity.Data.Entities.Review", b =>

@@ -83,5 +83,26 @@ namespace HandmadeCity.Services
                 }
             }
         }
+
+        public void Clear(ISession session)
+        {
+            var listOfProductsInCartValue = session.GetString(_listOfProductsInCartSessionKey);
+            if (!string.IsNullOrEmpty(listOfProductsInCartValue))
+            {
+                var deserializedProdList = JsonConvert.DeserializeObject<List<int>>(listOfProductsInCartValue);
+                deserializedProdList.Clear();
+
+                var serializedProdList = JsonConvert.SerializeObject(deserializedProdList);
+
+                session.SetString(_listOfProductsInCartSessionKey, serializedProdList);
+
+                var amountOfProductsInCartValue = session.GetString(_amountOfProductsInCartSessionKey);
+                if (!string.IsNullOrEmpty(amountOfProductsInCartValue))
+                {
+                    var serializedProdAmount = JsonConvert.SerializeObject(0);
+                    session.SetString(_amountOfProductsInCartSessionKey, serializedProdAmount);
+                }
+            }
+        }
     }
 }

@@ -7,14 +7,16 @@ using System.Threading.Tasks;
 
 namespace HandmadeCity.Data.Entities
 {
-    public class Order
+    public class Purchase
     {
         [Key]
         public int Id { get; set; }
         [Required]
         public ApplicationUser User { get; set; }
         [Required]
-        public IList<OrderProduct> OrderProducts { get; set; }
+        public IList<PurchaseProduct> PurchaseProducts { get; set; }
+        [Required]
+        public DateTime DateTime { get; set; }
         [DefaultValue(0)]
         public decimal TotalCost { get; set; }
     }
