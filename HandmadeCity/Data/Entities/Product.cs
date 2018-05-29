@@ -23,7 +23,7 @@ namespace HandmadeCity.Data.Entities
         public float TotalRating { get; set; }
         [DefaultValue("")]
         public string PictureUrl { get; set; }
-        public IList<Order> Orders { get; set; }
+        public IList<OrderProduct> OrderProducts { get; set; }
         public IList<Bookmark> Bookmarks { get; set; }
         public IList<Review> Reviews { get; set; }
         public Category Category { get; set; }

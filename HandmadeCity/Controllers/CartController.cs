@@ -7,7 +7,9 @@ using HandmadeCity.Data.Entities;
 using HandmadeCity.Services.Interfaces;
 using HandmadeCity.ViewModels.Cart;
 using HandmadeCity.ViewModels.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -21,11 +23,15 @@ namespace HandmadeCity.Controllers
         private readonly string _amountOfProductsInCartSessionKey = "AmountOfProductsInCart";
         private readonly HandmadeCityDbContext _dbContext;
         private readonly ICartService _cartService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public CartController(HandmadeCityDbContext dbContext, ICartService cartService)
+        public CartController(HandmadeCityDbContext dbContext,
+                              ICartService cartService,
+                              UserManager<ApplicationUser> userManager)
         {
             _dbContext = dbContext;
             _cartService = cartService;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -62,19 +68,59 @@ namespace HandmadeCity.Controllers
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
+        [Authorize]
         public IActionResult Purchase()
         {
-            var productIds = _cartService.Get(HttpContext.Session);
-            var order = new Order();
+            var activeUser = _userManager.GetUserAsync(User).Result;
 
-            foreach (var productId in productIds)
+            if (activeUser != null)
             {
-                var product = _dbContext.Products.FirstOrDefault(prod => prod.Id == productId);
-                
+                var productList = new List<Product>();
+                var productIds = _cartService.Get(HttpContext.Session);
+
+                foreach (var productId in productIds)
+                {
+                    var product = _dbContext.Products.FirstOrDefault(prod => prod.Id == productId);
+
+                    if (product != null)
+                    {
+                        productList.Add(product);
+                    }
+                }
+
+                if (productList.Count != 0)
+                {
+                    var newOrder = new Order
+                    {
+                        User = activeUser,
+                        OrderProducts = new List<OrderProduct>()
+                    };
+
+                    _dbContext.Orders.Add(newOrder);
+
+                    foreach (var product in productList)
+                    {
+                        newOrder.TotalCost += product.Price - product.Price * product.Discount / 100;
+                        var orderProduct = new OrderProduct()
+                        {
+                            Order = newOrder,
+                            Product = product
+                        };
+                        
+                        newOrder.OrderProducts.Add(orderProduct);
+                    }
+
+                    _dbContext.SaveChanges();
+
+                    return View("Purchase");
+                }
+            }
+            else
+            {
+                RedirectToAction("Login", "Account");
             }
 
-
-            return View("Purchase");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

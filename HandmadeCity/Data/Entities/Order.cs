@@ -14,7 +14,7 @@ namespace HandmadeCity.Data.Entities
         [Required]
         public ApplicationUser User { get; set; }
         [Required]
-        public IList<Product> Products { get; set; }
+        public IList<OrderProduct> OrderProducts { get; set; }
         [DefaultValue(0)]
         public decimal TotalCost { get; set; }
     }

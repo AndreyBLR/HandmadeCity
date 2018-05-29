@@ -9,6 +9,7 @@ using HandmadeCity.Services.Interfaces;
 using HandmadeCity.ViewModels.Home;
 using HandmadeCity.ViewModels.Products;
 using HandmadeCity.ViewModels.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -49,6 +50,7 @@ namespace HandmadeCity.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult AddProduct()
         {
             var categories = _dbContext.Categories.ToList();
@@ -58,6 +60,7 @@ namespace HandmadeCity.Controllers
         }
         
         [HttpPost]
+        [Authorize]
         public IActionResult AddProduct(ProductForAddingViewModel productForAddingViewModel)
         {
             var pictureUrl = SaveImageToContentFolder(productForAddingViewModel.Image);
