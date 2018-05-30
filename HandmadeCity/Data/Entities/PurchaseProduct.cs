@@ -8,7 +8,7 @@ namespace HandmadeCity.Data.Entities
 {
     public class PurchaseProduct
     {
-        public int OrderId { get; set; }
+        public int PurchaseId { get; set; }
         public Purchase Purchase { get; set; }
 
         public int ProductId { get; set; }

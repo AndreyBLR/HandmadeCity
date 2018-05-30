@@ -12,6 +12,7 @@ using HandmadeCity.Data;
 using HandmadeCity.Data.Entities;
 using HandmadeCity.Services;
 using HandmadeCity.Services.Interfaces;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace HandmadeCity
 {
@@ -40,7 +41,7 @@ namespace HandmadeCity
             services.AddDbContext<HandmadeCityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+           services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<HandmadeCityDbContext>()
                 .AddDefaultTokenProviders();
 

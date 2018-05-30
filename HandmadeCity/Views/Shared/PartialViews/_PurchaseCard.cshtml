@@ -14,19 +14,47 @@
                         <div class="panel panel-default" >
                             <div class="panel-heading" >
                                 <h4 class="panel-title" >
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#@prod.Id" >@prod.Name</a>
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#@Model.Id@prod.Id" >@prod.Name</a>
                                 </h4>
                             </div>
-                            <div id="@prod.Id" class="panel-collapse collapse" >
-                                <div class="panel-body" >@prod.Description</div>
+                            <div id="@Model.Id@prod.Id" class="panel-collapse collapse" >
+                                <div class="thumbnail">
+                                    <img src="@prod.PictureUrl" alt="" class="img-responsive" style="height: 200px">
+                                    <div class="caption">
+                                        <a href="#">@prod.Name</a>
+                                    </div>
+                                    <div class="ratings">
+                                        <p>
+                                            @for (int i = 0; i < prod.TotalRating; i++)
+                                            {
+                                                <span class="glyphicon glyphicon-star"></span>
+                                            }
+                                            @for (int i = 0; i < 5 - prod.TotalRating; i++)
+                                            {
+                                                <span class="glyphicon glyphicon-star-empty"></span>
+                                            } (@prod.ReviewAmout)
+                                        </p>
+                                    </div>
+
+                                    @if (prod.Discount > 0)
+                                    {
+                                        <p style="font-size: 15px;"> <strong style="font-size: 20px; font-weight: bold">@(prod.Price - prod.Price * prod.Discount / 100) BYN </strong><p><font color="green"><s>@prod.Price BYN</s>(-@prod.Discount% off)</font></p></p>
+                                    }
+                                    else
+                                    {
+                                        <strong style="font-size: 20px; font-weight: bold">@prod.Price BYN</strong>
+                                    }
+                                    
+                                    <div class="space-ten"></div>
+                                </div>
                             </div>
                         </div>
                     }
                 </div>
             </div>
 
-            <div class="panel-footer" >
-                @Model.TotalCost
+            <div class="panel-footer">
+                <strong style="font-size: 20px; font-weight: bold">@Model.TotalCost BYN</strong>
             </div>
         </div>
     </div>

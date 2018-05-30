@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HandmadeCity.Data.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,16 +24,16 @@ namespace HandmadeCity.Data
         {
             
         }
-
+        
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<PurchaseProduct>()
-                .HasKey(bc => new { bc.OrderId, bc.ProductId });
+                .HasKey(bc => new { bc.PurchaseId, bc.ProductId });
 
             builder.Entity<PurchaseProduct>()
                 .HasOne(bc => bc.Purchase)
                 .WithMany(b => b.PurchaseProducts)
-                .HasForeignKey(bc => bc.OrderId);
+                .HasForeignKey(bc => bc.PurchaseId);
 
             builder.Entity<PurchaseProduct>()
                 .HasOne(bc => bc.Product)
@@ -40,9 +41,6 @@ namespace HandmadeCity.Data
                 .HasForeignKey(bc => bc.ProductId);
 
             base.OnModelCreating(builder);
-            // Customize the ASP.NET Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Identity table names and more.
-            // Add your customizations after calling base.OnModelCreating(builder);
         }
     }
 }

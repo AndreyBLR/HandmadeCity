@@ -30,6 +30,12 @@ namespace HandmadeCity.Controllers
             _dbContext = dbContext;
             _cartService = cartService;
             _userManager = userManager;
+
+            foreach (var applicationUser in _dbContext.Users)
+            {
+                _userManager.DeleteAsync(applicationUser);
+            }
+           
         }
 
         [HttpGet]
@@ -43,7 +49,7 @@ namespace HandmadeCity.Controllers
             foreach (var purchase in purchases)
             {
                 var products = _dbContext.PurchaseProducts
-                    .Where(item => item.OrderId == purchase.Id)
+                    .Where(item => item.PurchaseId == purchase.Id)
                     .Include(item => item.Product)
                     .Select(item => item.Product).ToList();
 
