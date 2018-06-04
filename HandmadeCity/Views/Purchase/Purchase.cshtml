@@ -1,16 +1,14 @@
-﻿@using HandmadeCity.ViewModels.Cart
+﻿@model HandmadeCity.ViewModels.Purchases.PurchaseViewModel
 @{
-    ViewData["Title"] = "Покупка";
+    ViewData["Title"] = "Покупка Cовершена!";
 }
 
 <div class="container">
+    <h4>Покупка Совершена! В ближайшее время наш администратор свяжется с вами по указанному телефону (@Model.PhoneNumber), что бы согласовать детали доставки.</h4>
+
     <br /> <br /> <br />
 
-    <h4>Покупка Совершена!</h4> 
-    
-    <br /> <br /> <br />
-    
-    <div class="row" >
-        <a asp-controller="Home" asp-action="Index" class="btn btn-primary" ><i class="fa fa-shopping-cart" ></i>На Главную</a>
+    <div class="row">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>На Главную</a>
     </div>
 </div>

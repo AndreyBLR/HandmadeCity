@@ -1,0 +1,117 @@
+﻿@model HandmadeCity.ViewModels.Product.ProductViewModel
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="thumbnail">
+                <img class="img-responsive" src="@Model.PictureUrl" alt="">
+                <div class="caption-full">
+
+                    <br /> <br />
+                    @if (Model.Discount > 0) {
+                        <p class="pull-right" style="font-size: 15px;" >
+                            @(Model.Price - Model.Price * Model.Discount / 100) BYN
+                        </p>
+                    } else {
+                        <strong class="pull-right" style="font-size: 20px; font-weight: bold" >@Model.Price BYN</strong>
+                    }
+
+                    <h3>@Model.Name</h3>
+
+                    <br /> <br />
+               
+                    <p>@Model.Description</p>
+                </div>
+                <div class="ratings">
+                    <p>
+                        @for (int i = 0; i < Model.TotalRating; i++)
+                        {
+                            <span class="glyphicon glyphicon-star"></span>
+                        }
+                        @for (int i = 0; i < 5 - Model.TotalRating; i++)
+                        {
+                            <span class="glyphicon glyphicon-star-empty"></span>
+                        } (@Model.Reviews.Count отзывов)
+                    </p>
+                </div>
+            </div>
+            <div class="well">
+                @foreach (var review in @Model.Reviews) {
+                    <div class="row" >
+                        <div class="col-md-12" >
+                            <p class="pull-right" >
+                                @for (var i = 0; i < review.Rating; i++) {
+                                    <span class="glyphicon glyphicon-star" ></span>
+                                }
+                                @for (var i = 0; i < 5 - review.Rating; i++) {
+                                    <span class="glyphicon glyphicon-star-empty" ></span>
+                                }
+                            </p>
+                            <span>@review.User.UserName</span>
+                            <br />
+                            <p>@review.Text</p>
+                        </div>
+                    </div>
+                    <hr>
+                }
+
+
+                <div class="row center-block">
+                    <form method="post" asp-controller="Product" asp-action="AddReview" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="comment">Отзыв: </label>
+                            <textarea asp-for="AddReviewViewModel.Text" class="form-control" rows="5" id="comment"></textarea>
+                        </div>
+
+                        <input type="hidden" asp-for="AddReviewViewModel.ProductId" value="@Model.Id">
+
+                        <div class="form-group">
+                            <label style="margin-right: 20px">
+                                <input type="radio" asp-for="AddReviewViewModel.Rating" value="1">
+                                <span class="glyphicon glyphicon-star"></span>
+                            </label>
+                            <label style="margin-right: 20px">
+                                <input type="radio" asp-for="AddReviewViewModel.Rating" value="2">
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                            </label>
+                            <label style="margin-right: 20px">
+                                <input type="radio" asp-for="AddReviewViewModel.Rating" value="3">
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                            </label>
+                            <label style="margin-right: 20px">
+                                <input type="radio" asp-for="AddReviewViewModel.Rating" value="4">
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                            </label>
+                            <label style="margin-right: 20px">
+                                <input type="radio" asp-for="AddReviewViewModel.Rating" value="5">
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                            </label>
+                        </div>
+
+                        <div>
+                            <div class="text-right">
+                                <input class="btn btn-success" type="submit" value="Оставить Отзыв" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

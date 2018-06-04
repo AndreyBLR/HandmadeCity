@@ -20,11 +20,10 @@ namespace HandmadeCity.Data.Entities
         [DefaultValue(0)]
         public int Discount { get; set; }
         [DefaultValue(0)]
-        public float TotalRating { get; set; }
+        public int TotalRating { get; set; }
         [DefaultValue("")]
         public string PictureUrl { get; set; }
         public IList<PurchaseProduct> PurchaseProducts { get; set; }
-        public IList<Bookmark> Bookmarks { get; set; }
         public IList<Review> Reviews { get; set; }
         public Category Category { get; set; }
     }

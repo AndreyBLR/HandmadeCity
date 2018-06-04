@@ -1,0 +1,47 @@
+﻿@using HandmadeCity.ViewModels.Cart
+@model HandmadeCity.ViewModels.Cart.CartViewModel
+@{
+    ViewData["Title"] = "Корзина";
+}
+
+<div class="container">  
+
+    @if (Model.Products.Count == 0)
+    {
+        <h3 class="text-center">Ваша корзина пуста!</h3>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var product in Model.Products) {
+
+                <div class="col-md-4" >
+                    @Html.Partial("PartialViews/_ProductCard", product)
+                </div>
+            }
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="row" >
+            <form method="post" asp-controller="Purchase" asp-action="Purchase" enctype="multipart/form-data" >
+                <div class="form-group">
+                    <label asp-for="PurchaseViewModel.PhoneNumber">Телефон:</label>
+                    <input asp-for="PurchaseViewModel.PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PurchaseViewModel.PhoneNumber"></span>
+                </div>
+                <div>
+                    <div class="text-right" >
+                        <input class="btn btn-primary" type="submit" value="Заказать" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    }
+</div>
+
+
+
+        

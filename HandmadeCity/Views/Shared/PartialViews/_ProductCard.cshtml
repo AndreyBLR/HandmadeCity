@@ -1,11 +1,10 @@
-﻿@using HandmadeCity.ViewModels.Products
-@using HandmadeCity.ViewModels.Shared
-@model HandmadeCity.ViewModels.Shared.ProductViewModel
+﻿@using HandmadeCity.ViewModels.Shared
+@model HandmadeCity.ViewModels.Shared.ProductCardViewModel
 
 <div class="thumbnail">
     <img src="@Model.PictureUrl" alt="" class="img-responsive" style="height: 200px">
     <div class="caption">
-        <a href="#">@Model.Name</a>
+        <a asp-controller="Product" asp-action="GetById" asp-route-productId="@Model.Id">@Model.Name</a>
     </div>
     <div class="ratings">
         <p>
@@ -16,7 +15,7 @@
             @for (int i = 0; i < 5 - Model.TotalRating; i++)
             {
                 <span class="glyphicon glyphicon-star-empty"></span>
-            } (@Model.ReviewAmout)
+            } (@Model.ReviewAmount)
         </p>
     </div>
 
@@ -37,8 +36,6 @@
         else { 
             <a asp-controller="Cart" asp-action="RemoveFromCart" asp-route-productId="@Model.Id" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Удалить из корзины</a>
         }
-        
-        <a class="btn btn-primary" data-toggle="modal" data-target="#product_view" ><i class="fa fa-search" ></i>Add To Bookmark</a>
     </div>
     <div class="space-ten"></div>
 </div>

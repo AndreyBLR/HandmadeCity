@@ -29,9 +29,10 @@ namespace HandmadeCity.Controllers
             _cartService = cartService;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
-            var cartListViewModel = new CartListViewModel();
+            var cartListViewModel = new CartViewModel();
             var listOfProdIds = _cartService.Get(HttpContext.Session);
 
             if (listOfProdIds != null)
@@ -44,11 +45,14 @@ namespace HandmadeCity.Controllers
 
                     if (product != null)
                     {
-                        cartListViewModel.AddProductviewModel(new ProductViewModel(product, true));
+                        cartListViewModel.AddProductviewModel(new ProductCardViewModel(product)
+                        {
+                            IsInCart = true
+                        });
                     }
                 }
             }
-            return View("Cart", cartListViewModel);
+            return View("Index", cartListViewModel);
         }
 
         public IActionResult AddToCart(int productId)

@@ -7,7 +7,6 @@ using HandmadeCity.Data;
 using HandmadeCity.Data.Entities;
 using HandmadeCity.ViewModels;
 using HandmadeCity.ViewModels.Home;
-using HandmadeCity.ViewModels.Products;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
@@ -22,19 +21,6 @@ namespace HandmadeCity.Controllers
         public HomeController(HandmadeCityDbContext dbContext, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _dbContext = dbContext;
-
-            //foreach (var applicationUser in userManager.Users)
-            //{
-            //    userManager.DeleteAsync(applicationUser);
-            //}
-
-            //foreach (var role in roleManager.Roles)
-            //{
-            //    roleManager.DeleteAsync(role);
-            //}
-                      
-            
-            _dbContext.SaveChanges();
         }
 
         public IActionResult Index()

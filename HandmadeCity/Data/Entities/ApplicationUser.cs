@@ -7,7 +7,6 @@ namespace HandmadeCity.Data.Entities
     public class ApplicationUser : IdentityUser
     {
         public IList<Review> Reviews { get; set; }
-        public IList<Bookmark> Bookmarks { get; set; }
         public IList<Purchase> Orders { get; set; }
     }
 }

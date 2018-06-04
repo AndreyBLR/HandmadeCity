@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using HandmadeCity.Data.Entities;
 
 namespace HandmadeCity.ViewModels.Shared
 {
-    public class ProductViewModel
+    public class ProductCardViewModel
     {
-        public bool IsInCart { get; set; }
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -15,31 +16,30 @@ namespace HandmadeCity.ViewModels.Shared
 
         public int Discount { get; set; }
         public decimal Price { get; set; }
-
+        
         public int TotalRating { get; set; }
-        public int ReviewAmout { get; set; }
+        public int ReviewAmount { get; set; }
 
         public string PictureUrl { get; set; }
 
-        public ProductViewModel()
+        public bool IsInCart { get; set; }
+
+        public ProductCardViewModel()
         {
         }
 
-        public ProductViewModel(Product product, bool isInCart)
+        public ProductCardViewModel(Data.Entities.Product product)
         {
-            IsInCart = isInCart;
             Id = product.Id;
             Name = product.Name;
             Description = product.Description;
-            CategoryName = product?.Category?.Name;
+            CategoryName = product.Category.Name;
 
             Discount = product.Discount;
             Price = product.Price;
 
-            TotalRating = Convert.ToInt32(product.TotalRating);
-
-            if(product.Reviews != null)
-                ReviewAmout = product.Reviews.Count;
+            ReviewAmount = product.Reviews.Count;
+            TotalRating = product.Reviews.Count != 0 ? product.Reviews.Sum(rev => rev.Rating) / product.Reviews.Count : 0;
 
             PictureUrl = product.PictureUrl;
         }

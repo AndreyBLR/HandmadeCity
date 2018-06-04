@@ -3,9 +3,9 @@ using HandmadeCity.Data.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace HandmadeCity.ViewModels.Products
+namespace HandmadeCity.ViewModels.Product
 {
-    public class ProductForAddingViewModel
+    public class AddProductViewModel
     {
         public IFormFile Image { get; set; }
 
@@ -18,11 +18,11 @@ namespace HandmadeCity.ViewModels.Products
         public int Discount { get; set; }
         public decimal Price { get; set; }
 
-        public ProductForAddingViewModel()
+        public AddProductViewModel()
         {
         }
 
-        public ProductForAddingViewModel(IList<Category> categories)
+        public AddProductViewModel(IList<Category> categories)
         {
             Categories = new SelectList(categories, "Id", "Name");
         }

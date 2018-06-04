@@ -1,23 +1,25 @@
-﻿@model HandmadeCity.ViewModels.Purchases.PurchaseViewModel
-    
-<div class="panel-group" >
+﻿@using HandmadeCity.ViewModels.Shared
+@model HandmadeCity.ViewModels.Shared.PurchaseCardViewModel
+
+<div class="panel-group">
     <div class="panel panel-default">
-        <div class="panel-heading" >
+        <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" href="#@Model.Id">@Model.DateTime</a>
             </h4>
         </div>
         <div id="@Model.Id" class="panel-collapse collapse">
-            <div class="panel-body" >
+            <div class="panel-body">
                 <div class="panel-group" id="accordion">
-                    @foreach (var prod in @Model.ProductsList) {
-                        <div class="panel panel-default" >
-                            <div class="panel-heading" >
-                                <h4 class="panel-title" >
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#@Model.Id@prod.Id" >@prod.Name</a>
+                    @foreach (var prod in @Model.ProductsList)
+                    {
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#@Model.Id@prod.Id">@prod.Name</a>
                                 </h4>
                             </div>
-                            <div id="@Model.Id@prod.Id" class="panel-collapse collapse" >
+                            <div id="@Model.Id@prod.Id" class="panel-collapse collapse">
                                 <div class="thumbnail">
                                     <img src="@prod.PictureUrl" alt="" class="img-responsive" style="height: 200px">
                                     <div class="caption">
@@ -32,7 +34,7 @@
                                             @for (int i = 0; i < 5 - prod.TotalRating; i++)
                                             {
                                                 <span class="glyphicon glyphicon-star-empty"></span>
-                                            } (@prod.ReviewAmout)
+                                            } (@prod.ReviewAmount)
                                         </p>
                                     </div>
 
@@ -44,7 +46,7 @@
                                     {
                                         <strong style="font-size: 20px; font-weight: bold">@prod.Price BYN</strong>
                                     }
-                                    
+
                                     <div class="space-ten"></div>
                                 </div>
                             </div>

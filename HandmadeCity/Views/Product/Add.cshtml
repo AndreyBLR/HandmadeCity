@@ -1,16 +1,13 @@
-﻿@using HandmadeCity.ViewModels.Products
-@model HandmadeCity.ViewModels.Products.ProductForAddingViewModel
+﻿@using HandmadeCity.ViewModels.Product
+@model HandmadeCity.ViewModels.Product.AddProductViewModel
 @{
     ViewData["Title"] = "Добавить Товар";
 }
 
 <div class="container">
-    <br />
-    <br />
-    <br />
     <div class="row">
         <div class="col-md-4 ">
-            <form method="post" asp-controller="Products" asp-action="AddProduct" enctype="multipart/form-data">
+            <form method="post" asp-controller="Product" asp-action="AddProduct" enctype="multipart/form-data">
                 <div>
                     <div class="thumbnail">
                         <div class="caption">

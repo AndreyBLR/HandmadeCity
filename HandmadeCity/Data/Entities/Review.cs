@@ -14,7 +14,7 @@ namespace HandmadeCity.Data.Entities
         [Required, DefaultValue("")]
         public string Text { get; set; }
         [Required, DefaultValue(0)]
-        public float Rating { get; set; }
+        public int Rating { get; set; }
         [Required]
         public ApplicationUser User { get; set; }
         [Required]

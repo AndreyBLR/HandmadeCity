@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using HandmadeCity.Data;
 using HandmadeCity.Data.Entities;
 using HandmadeCity.Services.Interfaces;
-using HandmadeCity.ViewModels.Products;
 using HandmadeCity.ViewModels.Purchases;
 using HandmadeCity.ViewModels.Shared;
 using Microsoft.AspNetCore.Authorization;
@@ -17,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 namespace HandmadeCity.Controllers
 {
     [Authorize]
+    [Route("[controller]/[action]")]
     public class PurchaseController : Controller
     {
         private readonly HandmadeCityDbContext _dbContext;
@@ -44,7 +44,7 @@ namespace HandmadeCity.Controllers
             var activeUser = _userManager.GetUserAsync(User).Result;
 
             var purchases = _dbContext.Purchases.Include(item=>item.PurchaseProducts).Where(item=>item.User.Id == activeUser.Id);
-            var purchaseHistoryViewModel = new PurchaseHistoryViewModel();
+            var purchaseHistoryViewModel = new PurchasesViewModel();
 
             foreach (var purchase in purchases)
             {
@@ -53,13 +53,13 @@ namespace HandmadeCity.Controllers
                     .Include(item => item.Product)
                     .Select(item => item.Product).ToList();
 
-                purchaseHistoryViewModel.AddPurchaseViewModel(new PurchaseViewModel(purchase));
+                purchaseHistoryViewModel.AddPurchaseViewModel(new PurchaseCardViewModel(purchase));
             }
 
-            return View("PurchaseHistory", purchaseHistoryViewModel);
+            return View("Index", purchaseHistoryViewModel);
         }
         
-        public IActionResult Purchase()
+        public IActionResult Purchase(PurchaseViewModel purchaseViewModel)
         {
             var activeUser = _userManager.GetUserAsync(User).Result;
 
